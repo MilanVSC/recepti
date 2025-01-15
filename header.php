@@ -45,7 +45,7 @@ include_once "session.php";
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container position-relative d-flex align-items-center justify-content-between">
 
-        <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1 class="sitename">Yummy</h1>
@@ -58,6 +58,7 @@ include_once "session.php";
 
                 ?>
                 <li><a href="index.php">Domov<br></a></li>
+                <li><a href="recipes.php">Recepti<br></a></li>
                 <li><a href="cities.php">Kraji</a></li>
                 <li><a href="categories.php">Kategorije</a></li>
                 <li><a href="logout.php">Odjava</a></li>
