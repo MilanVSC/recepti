@@ -10,8 +10,8 @@ $description = $_POST['description'];
 $duration =  (int) $_POST['duration'];
 $level = (int) $_POST['level'];
 $number_of_people = (int) $_POST['number_of_people'];
-$proceedings = (int) $_POST['proceedings'];
-$ingredients = (int) $_POST['ingredients'];
+$proceedings = $_POST['proceedings'];
+$ingredients = $_POST['ingredients'];
 
 $sql = "UPDATE recipes SET
                    title=?, category_id=?, description=?, duration=?, level=?, number_of_people=?, proceedings=?, ingredients=?, user_id=?

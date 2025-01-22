@@ -19,13 +19,23 @@ $row = $stmt->fetch();
     <div id="ime_recepta"><?php echo $row ['title']; ?></div>
     <div id="kategorija"><?php echo $row ['category']; ?></div>
     <div id="Slike">
-        <div class="slika"><img src="" alt=""/></div>
+        <?php
+        $sql = "SELECT * FROM images WHERE recipe_id=? ORDER BY date_add";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+
+        while ($image = $stmt->fetch()) {
+            echo'<div class="slika"><img src="'.$image['url'].'" alt="" width="100px"/></div>';
+        }
+        ?>
+        
         <div class="slika"><img src="" alt=""/></div>
         <div class="slika"><img src="" alt=""/></div>
     </div>
     <form action="recipe_image_upload.php" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" required="required" placeholder="Naloži sliko recepta"/>
-        <input type="submit" value="Naloži"/>
+        <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+        <input type="file" name="fileToUpload" required="required" placeholder="Naloži sliko recepta"/>
+        <input type="submit" name = "submit" value="Naloži"/>
 
     </form>
     <div id="opis_recepta"><?php echo $row ['description']; ?></div>
