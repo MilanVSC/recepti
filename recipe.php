@@ -33,20 +33,57 @@ $row = $stmt->fetch();
         <div class="slika"><img src="" alt=""/></div>
     </div>
     <form action="recipe_image_upload.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-        <input type="file" name="fileToUpload" required="required" placeholder="Naloži sliko recepta"/>
-        <input type="submit" name = "submit" value="Naloži"/>
-
+        <input type="hidden" name="id" value="<?php echo $id; ?>" />
+        <input type="file" name="fileToUpload" required="required" placeholder="Naloži sliko recepta" />
+        <input type="submit" name="submit" value="Naloži" />
     </form>
-    <div id="opis_recepta"><?php echo $row ['description']; ?></div>
+    <div id="opis_recepta"><?php echo $row['description'];?></div>
     <div id="podrobnosti">
-        <div id="postopek"><?php echo $row ['proceedings']; ?></div>
-        <div id="sestavine"><?php echo $row ['ingredients']; ?></div>
+        <div id="postopek"><?php echo $row['proceedings'];?></div>
+        <div id="sestavine"><?php echo $row['ingredients'];?></div>
     </div>
-    <div id="cas"><?php echo $row ['duration']; ?> min</div>
-    <div id="<?php echo $row ['level']; ?>">2</div>
+    <div id="trajanje">
+        <div id="cas"><?php echo $row['duration'];?> min</div>
+        <div id="zahtevnost"><?php echo $row['level'];?></div>
+    </div>
+</div>
+<hr />
+<div id="komentarji">
+    <div class="oddaja">
+        <h2>Oddaj komentar ali oceno</h2>
+        <form action="recipe_comment.php" method="post">
+            <input type="hidden" name="id" value="<?php echo $id; ?>" />
+            <input type="text" placeholder="Vnesi komentar recepta" name="content" class="form-control" /><br />
+            <input type="number" min="1" max="5" name="score" placeholder="Vnesi oceno recepta" class="form-control" /> <br />
+            <input type="submit" name="submit" value="Naloži" /> <input type="reset" value="Prekliči" />
+        </form>
+    </div>
+    <br />
+    <div class="izpis">
+        <?php
+        $sql = "SELECT c.*, u.first_name, u.last_name FROM comments c INNER JOIN users u ON u.id=c.user_id WHERE recipe_id=?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+
+        while ($row = $stmt->fetch()) {
+            echo '<div class="komentar">';
+            echo '<div class="oseba">'.$row['first_name'].' '.$row['last_name'].' ('.$row['date_add'].')</div>';
+            echo '<div class="ocena">'.$row['score'].'</div>';
+            echo '<div class="vsebina">'.$row['content'].'</div>';
+            //preverim ali je trenutno prijavljen uporabnik napisal ta komentar
+            if ($_SESSION['user_id'] == $row['user_id']) {
+                echo '<div class="akcija"><a href="comment_delete.php?id='.$row['id'].'" >X</a><div/>';
+            }
+
+            echo '</div>';
+        }
+        ?>
+
+    </div>
+
 
 </div>
+
 
 <?php
 include_once 'footer.php';
