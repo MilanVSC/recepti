@@ -1,5 +1,5 @@
 <?php
-include_once 'header.php';
+include_once 'session.php';
 include_once 'db.php';
 
 $id = $_GET['id'];
@@ -9,6 +9,12 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$id]);
 
 $row = $stmt->fetch();
+
+if ($row['user_id'] != $_SESSION['user_id']) {
+    //preusmeritev - ne dovolim
+    header("Location: recipes.php");
+}
+include_once 'header.php';
 ?>
 
 <h1">Uredi recept</h1>
