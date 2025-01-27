@@ -49,7 +49,7 @@ include_once "session.php";
         <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
-            <h1 class="sitename">Yummy</h1>
+            <h1 class="sitename">Recepti</h1>
             <span>.</span>
         </a>
 
@@ -62,7 +62,8 @@ include_once "session.php";
                 <li><a href="recipes.php">Recepti<br></a></li>
                 <li><a href="cities.php">Kraji</a></li>
                 <li><a href="categories.php">Kategorije</a></li>
-                <li><a href="logout.php">Odjava</a></li>
+                <li><a href="profile.php">Profil</a></li>
+                <li><a href="logout.php" onclick="return confirm('Prepričani?')">Odjava</a></li>
                 <?php
                 }
                 else {

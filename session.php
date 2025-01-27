@@ -7,6 +7,7 @@ function isAdmin()
     if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
         $return = true;
     }
+    return $return;
 }
 
 /**
