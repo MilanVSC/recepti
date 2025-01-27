@@ -1,5 +1,6 @@
 <?php
 include_once'db.php';
+include_once'session.php';
 
 $email = $_POST['email'];
 $password = $_POST['pass'];
@@ -14,7 +15,7 @@ if (!empty($email) && !empty($password)) {
     //preverimo, če uporabnik obstaja in če je pravilno geslo
     if ($user && password_verify($password, $user['pass'])) {
         //vse ok
-        session_start();
+        msg('Uspešna prijava','success');
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['admin'] = $user['admin'];
         header("Location: index.php");
